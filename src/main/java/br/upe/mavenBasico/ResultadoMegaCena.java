@@ -10,6 +10,7 @@ import java.io.IOException;
 public class ResultadoMegaCena {
 
     private final static String URL = "https://www.megasena.com/resultados";
+    private static String urlAno = "https://www.megasena.com/resultados/ano-";
 
     public static String[] obtemUltimoResultado() {
         try {
@@ -41,5 +42,29 @@ public class ResultadoMegaCena {
         }
     }
 
+    public static String[] obtemResultadoData(String ano, int indice) {
+        try {
+            Document doc = Jsoup.connect(urlAno + ano).get();
+    
+            Elements listas = doc.select("ul.balls.-lg");
+    
+            if (listas.isEmpty() || indice < 1 || indice > listas.size()) {
+                throw new IllegalArgumentException("Índice inválido.");
+            }
+    
+            Element listaSelecionada = listas.get(indice - 1); // índice - 1 pois lista começa em 0
+            Elements dezenas = listaSelecionada.select("li.ball");
+    
+            String[] resultado = new String[dezenas.size()];
+            for (int i = 0; i < dezenas.size(); i++) {
+                resultado[i] = dezenas.get(i).text();
+            }
+    
+            return resultado;
+    
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao acessar os dados da Mega-Sena.", e);
+        }
+    }
     
 }
