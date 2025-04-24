@@ -1,6 +1,6 @@
 package br.upe.mavenBasico;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,8 @@ public class AppTest {
      * Rigorous Test :-)
      */
     @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
+    public void testAppStartsWithoutException() {
+        assertDoesNotThrow(() -> App.main(new String[]{}));
     }
+
 }
