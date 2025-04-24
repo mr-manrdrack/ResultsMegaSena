@@ -40,4 +40,6 @@ public class ResultadoMegaCena {
             throw new RuntimeException("Erro ao obter os dados da Mega-Sena", e);
         }
     }
+
+    
 }
